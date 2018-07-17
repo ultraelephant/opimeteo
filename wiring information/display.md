@@ -43,6 +43,6 @@
        </tr>
       </table>
     </td>
-    <td><img src="https://github.com/ultraelephant/opimeteo/blob/master/wiring%20information/spi_display_pins.jpg"></td>
+    <td><img src="https://github.com/ultraelephant/opimeteo/blob/master/wiring%20information/spi_display.jpg"></td>
   </tr>
 </table>
