@@ -10,6 +10,28 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get install python-pygame python-netifaces build-essential libi2c-dev i2c-tools python-dev libffi-dev mariadb-client mariadb-server -y
 pip install smbus-cffi==0.5.1
 
+echo "configuring database"
+echo -n "mysql root password: "
+read rootpass
+echo -n "meteo mysql user name: "
+read meteouser
+echo -n "meteo mysql user password: "
+read meteouserpassword
+echo -n "meteo database name: "
+read meteobasename
+{
+echo "SET @rootpass='${rootpass}';"
+cat mysqlinit.sql
+} | mysql -u root
+mysql --user=root --password=${rootpass} -e "CREATE USER ${meteouser}@'localhost' IDENTIFIED BY '${meteouserpassword}'; \
+CREATE DATABASE ${meteobasename}; \
+GRANT USAGE ON *.* TO ${meteouser}@localhost IDENTIFIED BY '${meteouserpassword}'; \
+GRANT all privileges ON ${meteobasename}.* TO ${meteouser}@localhost; \
+FLUSH PRIVILEGES;"
+mkdir /etc/optimeteo
+echo "meteouser = $meteouser\nmeteouserpassword = $meteouserpassword\nmeteobasename = $meteobasename\n" > /etc/optimeteo/config.py
+
+
 echo "configuring autostart"
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 sed -e s/exit\ 0//g -i /etc/rc.local
