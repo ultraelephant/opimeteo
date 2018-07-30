@@ -6,7 +6,7 @@ echo "options fbtft_device custom name=adafruit18 gpios=reset:1,dc:0,led:3 width
 echo "blacklist bmp085" > /etc/modprobe.d/blacklist.conf
 
 echo "installing required packages"
-apt-get install python-pygame python-netifaces build-essential libi2c-dev i2c-tools python-dev libffi-dev -y
+apt-get install python-pygame python-netifaces build-essential libi2c-dev i2c-tools python-dev libffi-dev mariadb-client mariadb-server -y
 pip install smbus-cffi==0.5.1
 
 echo "configuring autostart"
