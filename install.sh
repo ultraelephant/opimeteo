@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "configuring modules for tft fb"
+echo "configuring modules"
 echo "fbtft_device" >> /etc/modules-load.d/modules.conf
 echo "options fbtft_device custom name=adafruit18 gpios=reset:1,dc:0,led:3 width=128 height=128 busnum=1" > /etc/modprobe.d/fbtft.conf
 echo "blacklist bmp085" > /etc/modprobe.d/blacklist.conf
@@ -28,9 +28,10 @@ CREATE DATABASE ${meteobasename}; \
 GRANT USAGE ON *.* TO ${meteouser}@localhost IDENTIFIED BY '${meteouserpassword}'; \
 GRANT all privileges ON ${meteobasename}.* TO ${meteouser}@localhost; \
 FLUSH PRIVILEGES;"
+
+echo "Generating config files"
 mkdir /etc/optimeteo
 echo "meteouser = $meteouser\nmeteouserpassword = $meteouserpassword\nmeteobasename = $meteobasename\n" > /etc/optimeteo/config.py
-
 
 echo "configuring autostart"
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
