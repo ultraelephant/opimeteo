@@ -3,9 +3,12 @@
 import smbus
 import time
 import argparse
+import sys
 from ctypes import c_short
 from ctypes import c_byte
 from ctypes import c_ubyte
+sys.path.insert(0, '/etc/optimeteo')
+import config
 
 argparser = argparse.ArgumentParser()
 argparser.add_argument('-b', '--bus' , action='store', help='Bus No')
@@ -111,10 +114,12 @@ def readBME280All(addr=DEVICE):
  return temperature/100.0,pressure/100.0,humidity
 
 def main():
- temperature,pressure,humidity = readBME280All()
- print "Temperature : ", temperature, "C"
- print "Pressure : ", pressure, "hPa"
- print "Humidity : ", humidity, "%"
-
+ while True:
+  temperature,pressure,humidity = readBME280All()
+  print "Temperature : ", temperature, "C"
+  print "Pressure : ", pressure, "hPa"
+  print "Humidity : ", humidity, "%"
+  time.sleep(config.datagettime)
+  
 if __name__=="__main__":
  main()
