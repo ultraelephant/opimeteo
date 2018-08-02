@@ -19,6 +19,9 @@ echo -n "meteo mysql user password: "
 read meteouserpassword
 echo -n "meteo database name: "
 read meteobasename
+echo -n "Sensors data receiving frequency (seconds): "
+read datagettime
+Проверить вайлом гетдата на интежер
 {
 echo "SET @rootpass='${rootpass}';"
 cat mysqlinit.sql
@@ -31,7 +34,7 @@ FLUSH PRIVILEGES;"
 
 echo "Generating config files"
 mkdir /etc/optimeteo
-echo "meteouser = \"$meteouser\"\nmeteouserpassword = \"$meteouserpassword\"\nmeteobasename = \"$meteobasename\"\n" > /etc/optimeteo/config.py
+echo "meteouser = \"$meteouser\"\nmeteouserpassword = \"$meteouserpassword\"\nmeteobasename = \"$meteobasename\"\ndatagettime = \"$datagettime\"\n" > /etc/optimeteo/config.py
 
 echo "configuring autostart"
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
