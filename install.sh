@@ -31,7 +31,7 @@ FLUSH PRIVILEGES;"
 
 echo "Generating config files"
 mkdir /etc/optimeteo
-echo "meteouser = $meteouser\nmeteouserpassword = $meteouserpassword\nmeteobasename = $meteobasename\n" > /etc/optimeteo/config.py
+echo "meteouser = \"$meteouser\"\nmeteouserpassword = \"$meteouserpassword\"\nmeteobasename = \"$meteobasename\"\n" > /etc/optimeteo/config.py
 
 echo "configuring autostart"
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
