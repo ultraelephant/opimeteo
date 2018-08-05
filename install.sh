@@ -19,12 +19,18 @@ echo -n "meteo mysql user password: "
 read meteouserpassword
 echo -n "meteo database name: "
 read meteobasename
-echo -n "Sensors data receiving frequency (seconds): "
-read datagettime
-Проверить вайлом гетдата на интежер
+datagettime='none'
+while [[ ! $datagettime =~ ^[0-9]+$ ]]
+do
+ echo -n "Sensors data receiving frequency (seconds): "
+ read datagettime
+ if [[ ! $datagettime =~ ^[0-9]+$ ]]; then
+  echo "!!!Must be a number!!!"
+ fi
+done
 {
-echo "SET @rootpass='${rootpass}';"
-cat mysqlinit.sql
+ echo "SET @rootpass='${rootpass}';"
+ cat mysqlinit.sql
 } | mysql -u root
 mysql --user=root --password=${rootpass} -e "CREATE USER ${meteouser}@'localhost' IDENTIFIED BY '${meteouserpassword}'; \
 CREATE DATABASE ${meteobasename}; \
