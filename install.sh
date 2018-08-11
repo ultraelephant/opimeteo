@@ -46,5 +46,8 @@ echo "configuring autostart"
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 sed -e s/exit\ 0//g -i /etc/rc.local
 sed -e s/will\ \"\"\ on\ success/will\ \"\exit\ 0\"\ on\ success/g -i /etc/rc.local
-echo "python $SCRIPTPATH/main.py" >> /etc/rc.local
+echo "python $SCRIPTPATH/main.py &" >> /etc/rc.local
+echo "sleep 30 && python & $SCRIPTPATH/bme280.py -b 0 -a 76 &" >> /etc/rc.local
+echo "sleep 60 && python & $SCRIPTPATH/bme280.py -b 0 -a 77 &" >> /etc/rc.local
+echo "python $SCRIPTPATH/main.py &" >> /etc/rc.local
 echo "exit 0" >> /etc/rc.local
