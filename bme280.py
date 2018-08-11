@@ -9,6 +9,7 @@ from ctypes import c_byte
 from ctypes import c_ubyte
 sys.path.insert(0, '/etc/optimeteo')
 import config
+import dbconnector
 
 argparser = argparse.ArgumentParser()
 argparser.add_argument('-b', '--bus' , action='store', help='Bus No')
@@ -17,6 +18,7 @@ args = argparser.parse_args()
 
 DEVICE = int("0x"+args.address, 16)
 bus = smbus.SMBus(int(args.bus))
+tablename = 'bme280_' + args.bus + args.address
 
 
 def getShort(data, index):
@@ -116,9 +118,7 @@ def readBME280All(addr=DEVICE):
 def main():
  while True:
   temperature,pressure,humidity = readBME280All()
-  print "Temperature : ", temperature, "C"
-  print "Pressure : ", pressure, "hPa"
-  print "Humidity : ", humidity, "%"
+  dbconnector.commitdata (tablename,config.meteouser,config.meteouserpassword,config.meteobasename,temperature,pressure,humidity)
   time.sleep(config.datagettime)
   
 if __name__=="__main__":
