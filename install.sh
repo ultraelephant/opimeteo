@@ -7,7 +7,7 @@ echo "blacklist bmp085" > /etc/modprobe.d/blacklist.conf
 
 echo "installing required packages"
 export DEBIAN_FRONTEND=noninteractive
-apt-get install python-pygame python-netifaces build-essential libi2c-dev i2c-tools python-dev libffi-dev mariadb-client mariadb-server python-pymysql -y
+apt-get install python-pygame python-netifaces build-essential libi2c-dev i2c-tools python-dev libffi-dev mariadb-client mariadb-server python-pymysql apache2 php5 php-pear php5-mysql -y
 pip install smbus-cffi==0.5.1
 
 echo "configuring database"
