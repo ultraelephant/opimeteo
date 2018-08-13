@@ -50,3 +50,8 @@ echo "python $SCRIPTPATH/main.py &" >> /etc/rc.local
 echo "sleep 30 && python & $SCRIPTPATH/bme280.py -b 0 -a 76 &" >> /etc/rc.local
 echo "sleep 60 && python & $SCRIPTPATH/bme280.py -b 0 -a 77 &" >> /etc/rc.local
 echo "exit 0" >> /etc/rc.local
+
+echo "Web app magic"
+rm -f /var/www/html/index.html
+cp ./webapp/index.php /var/www/html/index.php
+cp ./webapp/pyconfpars.php /var/www/html/pyconfpars.php
