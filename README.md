@@ -8,6 +8,6 @@ Pereferical devices:
 Features:
 1. Displaying status of network interfaces on spi display
 2. Getting temperature, humidity and pressure values by python script
-3. Storing BME/BMP280 value in mariadb
+3. Storing BME/BMP280 values in mariadb
 
 Run install.sh to install requirent packages, configurind modules to load and  configuring programm autostart.
