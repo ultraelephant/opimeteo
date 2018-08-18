@@ -55,3 +55,4 @@ echo "Web app magic"
 rm -f /var/www/html/index.html
 cp ./webapp/index.php /var/www/html/index.php
 cp ./webapp/pyconfpars.php /var/www/html/pyconfpars.php
+cp ./webapp/dbconnector.php /var/www/html/dbconnector.php
