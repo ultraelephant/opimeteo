@@ -56,3 +56,6 @@ rm -f /var/www/html/index.html
 cp ./webapp/index.php /var/www/html/index.php
 cp ./webapp/pyconfpars.php /var/www/html/pyconfpars.php
 cp ./webapp/dbconnector.php /var/www/html/dbconnector.php
+mkdir /var/www/html/js
+cp ./webapp/js/jquery-3.3.1.min.js /var/www/html/js/jquery-3.3.1.min.js
+cp ./webapp/js/index.js /var/www/html/js/index.js
