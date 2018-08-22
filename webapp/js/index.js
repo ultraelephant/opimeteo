@@ -1,5 +1,14 @@
-$(document).on('change','#getvalue_dbname', function()
+function posttogetvalues(value)
 {
- var selected = $('#getvalue_dbname option:selected').val();
- $("#values").text(selected);
-});
+ var request = new XMLHttpRequest();
+ request.open('POST', 'getvalues.php', true);
+ request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+ request.onreadystatechange = function()
+ {
+  if (request.readyState == 4 && request.status == 200)
+  {
+   document.getElementById('values').innerHTML = request.responseText;
+  }
+ }
+ request.send('getvalue_dbname=' + value);
+}
