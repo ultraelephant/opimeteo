@@ -12,3 +12,11 @@ function posttogetvalues(value)
  }
  request.send('getvalue_dbname=' + value);
 }
+
+function getselectedvalue (selectid)
+{
+ var e = document.getElementById(selectid).value;
+ return e;
+}
+
+var timerId = setInterval(function () {posttogetvalues(getselectedvalue('getvalue_dbname'))}, 10000);
