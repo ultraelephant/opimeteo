@@ -30,3 +30,22 @@ def commitdata (tablename,dbuser,dbpassword,dbname,temp,pres,humi):
  except pymysql.err.ProgrammingError:
   tablecheck (tablename,dbuser,dbpassword,dbname)
   commitdata (tablename,dbuser,dbpassword,dbname,temp,pres,humi)
+
+def getdata (dbuser,dbpassword,dbname):
+ connection = pymysql.connect(host='localhost',
+                              user=dbuser,
+                              password=dbpassword,
+                              db=dbname,
+                              charset='utf8mb4',
+                              cursorclass=pymysql.cursors.DictCursor)
+ cursor = connection.cursor()
+ cursor.execute ("SHOW TABLES like 'bme280_%'")
+ tables = cursor.fetchall()
+ result = []
+ for table in tables:
+  cursor.execute ("SELECT temp, pres, humi FROM " + table.values()[0] + " ORDER BY id DESC LIMIT 1;")
+  bufresult = cursor.fetchall()
+  bufresult[0]["tablename"]=(table.values()[0])
+  result.extend(bufresult)
+ connection.close()
+ return result
