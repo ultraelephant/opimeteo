@@ -28,13 +28,7 @@ def main():
    if event.type ==  QUIT or (event.type == KEYUP and event.key == K_ESCAPE):
     pygame.quit()
     sys.exit()
-  if trip == 0:
-   write_text("eth0",DISPLAYSURF)
-   trip = 1
-  else:
-   write_text("wlan0",DISPLAYSURF)
-   trip = 0
-  pygame.display.update()
+  write_if(DISPLAYSURF)
   FPSCLOCK.tick(FPS)
   time.sleep(10)
 
@@ -57,16 +51,23 @@ def ml_text(surface, text, pos, font, color):
   y += word_height
 
 # a funtion to write text
-def write_text(iface,surf):
- surf.fill(WHITE)
- addr=netifaces.ifaddresses(iface)
+def write_if(surf):
+ ni = netifaces.interfaces()
  fontObj = pygame.font.Font(None, 22)
  text = "N/A"
- if netifaces.AF_INET in addr:
-  text = iface+"\nmac: "+addr[netifaces.AF_LINK][0]['addr']+"\nip_addr: "+addr[netifaces.AF_INET][0]['addr']
- else:
-  text = iface+"\nmac: "+addr[netifaces.AF_LINK][0]['addr']+"\nip_addr: N/A"
- ml_text (surf,text,(6,6),fontObj, pygame.Color('black'))
+ for iface in ni:
+  addr=netifaces.ifaddresses(iface)
+  try:
+   err = addr[netifaces.AF_INET][0]['peer']
+  except KeyError:
+   surf.fill(WHITE)
+   if netifaces.AF_INET in addr:
+    text = iface+"\nmac: "+addr[netifaces.AF_LINK][0]['addr']+"\nip_addr: "+addr[netifaces.AF_INET][0]['addr']
+   else:
+    text = iface+"\nmac: "+addr[netifaces.AF_LINK][0]['addr']+"\nip_addr: N/A"
+   ml_text (surf,text,(6,6),fontObj, pygame.Color('black'))
+   pygame.display.update()
+   time.sleep(10)
 
 # Run Main Function
 if __name__ == '__main__':
