@@ -2,6 +2,9 @@
 
 import pygame, sys, os, math, netifaces, time
 from pygame.locals import *
+sys.path.insert(0, '/etc/optimeteo')
+import config
+import dbconnector
 
 os.environ["SDL_FBDEV"] = "/dev/fb8"
 
@@ -29,6 +32,7 @@ def main():
     pygame.quit()
     sys.exit()
   write_if(DISPLAYSURF)
+  write_data(DISPLAYSURF)
   FPSCLOCK.tick(FPS)
   time.sleep(10)
 
@@ -69,6 +73,17 @@ def write_if(surf):
    pygame.display.update()
    time.sleep(10)
 
+def write_data(surf):
+ data_arr = dbconnector.getdata(config.meteouser,config.meteouserpassword,config.meteobasename)
+ fontObj = pygame.font.Font(None, 22)
+ text = "N/A"
+ for data in data_arr:
+  surf.fill(WHITE)
+  text = data.values()[1]+"\nT: "+str(data.values()[3])+" C"+"\nH: "+str(round(data.values()[0],2))+" %"+"\nP: "+str(round(data.values()[2],2))+" Pa"
+  ml_text (surf,text,(6,6),fontObj, pygame.Color('black'))
+  pygame.display.update()
+  time.sleep(10)  
+ 
 # Run Main Function
 if __name__ == '__main__':
  main()
