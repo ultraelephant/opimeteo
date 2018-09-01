@@ -9,5 +9,7 @@ Features:
 1. Displaying status of network interfaces on spi display
 2. Getting temperature, humidity and pressure values by python script
 3. Storing BME/BMP280 values in mariadb
+4. Displaying last values via web page
+5. Displaying last values on spi display
 
 Run install.sh to install requirent packages, configurind modules to load and  configuring programm autostart.
