@@ -79,7 +79,7 @@ def write_data(surf):
  text = "N/A"
  for data in data_arr:
   surf.fill(WHITE)
-  text = data.values()[1]+"\nT: "+str(data.values()[3])+" C"+"\nH: "+str(round(data.values()[0],2))+" %"+"\nP: "+str(round(data.values()[2],2))+" Pa"
+  text = data.values()[1]+"\nT: "+str(data.values()[3])+" C"+"\nH: "+str(round(data.values()[0],2))+" %"+"\nP: "+str(round((data.values()[2]/1000),2))+" Bar"
   ml_text (surf,text,(6,6),fontObj, pygame.Color('black'))
   pygame.display.update()
   time.sleep(10)  
