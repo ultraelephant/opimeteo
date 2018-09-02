@@ -61,6 +61,6 @@ def houskeeping (dbuser,dbpassword,dbname,days):
  cursor.execute ("SHOW TABLES like 'bme280_%'")
  tables = cursor.fetchall()
  for table in tables:
-  cursor.execute ("DELETE FROM " + table.values()[0] + " WHERE datetime < NOW() - INTERVAL " + days +  " DAY;")
+  cursor.execute ("DELETE FROM " + table.values()[0] + " WHERE datetime < NOW() - INTERVAL " + str(days) +  " DAY;")
  connection.commit()
  connection.close()
