@@ -49,3 +49,18 @@ def getdata (dbuser,dbpassword,dbname):
   result.extend(bufresult)
  connection.close()
  return result
+
+def houskeeping (dbuser,dbpassword,dbname,days):
+ connection = pymysql.connect(host='localhost',
+                              user=dbuser,
+                              password=dbpassword,
+                              db=dbname,
+                              charset='utf8mb4',
+                              cursorclass=pymysql.cursors.DictCursor)
+ cursor = connection.cursor()
+ cursor.execute ("SHOW TABLES like 'bme280_%'")
+ tables = cursor.fetchall()
+ for table in tables:
+  cursor.execute ("DELETE FROM " + table.values()[0] + " WHERE datetime < NOW() - INTERVAL " + days +  " DAY;")
+ connection.commit()
+ connection.close()
