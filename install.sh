@@ -28,6 +28,15 @@ do
   echo "!!!Must be a number!!!"
  fi
 done
+keeptime='none'
+while [[ ! $keeptime =~ ^[0-9]+$ ]]
+do
+ echo -n "Keep old data (days): "
+ read keeptime
+ if [[ ! $keeptime =~ ^[0-9]+$ ]]; then
+  echo "!!!Must be a number!!!"
+ fi
+done
 {
  echo "SET @rootpass='${rootpass}';"
  cat mysqlinit.sql
@@ -40,7 +49,7 @@ FLUSH PRIVILEGES;"
 
 echo "Generating config files"
 mkdir /etc/optimeteo
-echo "meteouser = \"$meteouser\"\nmeteouserpassword = \"$meteouserpassword\"\nmeteobasename = \"$meteobasename\"\ndatagettime = \"$datagettime\"\n" > /etc/optimeteo/config.py
+echo "meteouser = \"$meteouser\"\nmeteouserpassword = \"$meteouserpassword\"\nmeteobasename = \"$meteobasename\"\ndatagettime = \"$datagettime\"\nkeeptime = \"$keeptime\"\n" > /etc/optimeteo/config.py
 
 echo "configuring autostart"
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
