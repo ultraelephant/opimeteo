@@ -118,6 +118,7 @@ def readBME280All(addr=DEVICE):
 def main():
  while True:
   temperature,pressure,humidity = readBME280All()
+  dbconnector.houskeeping (config.meteouser,config.meteouserpassword,config.meteobasename,config.keeptime)
   dbconnector.commitdata (tablename,config.meteouser,config.meteouserpassword,config.meteobasename,temperature,pressure,humidity)
   time.sleep(config.datagettime)
   
