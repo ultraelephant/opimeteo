@@ -59,6 +59,7 @@ echo "python $SCRIPTPATH/main.py &" >> /etc/rc.local
 echo "sleep 30 && python & $SCRIPTPATH/bme280.py -b 0 -a 76 &" >> /etc/rc.local
 echo "sleep 60 && python & $SCRIPTPATH/bme280.py -b 0 -a 77 &" >> /etc/rc.local
 echo "exit 0" >> /etc/rc.local
+(crontab -l; echo "0 0 * * * /usr/bin/python $SCRIPTPATH/housekeeping.py >/dev/null 2>&1") | crontab -
 
 echo "Web app magic"
 rm -f /var/www/html/index.html
